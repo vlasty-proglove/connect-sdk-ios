@@ -1,18 +1,19 @@
-// swift-tools-version: 5.5
+// swift-tools-version: 5.9
 import PackageDescription
 
 let version = "2.9.0"
-let checksum = "580042dcda21f0da33d22e493edb908b4d8688232c8c66d42052ce9b30d88df9"
+// let checksum = "580042dcda21f0da33d22e493edb908b4d8688232c8c66d42052ce9b30d88df9"
 
 let package = Package(
-    name: "ConnectSDK",
+    name: "ProGloveConnectSDK",
     platforms: [.iOS(.v13)],
     products: [
         .library(
-            name: "ConnectSDK",
+            name: "ProGloveConnectSDK",
             targets: ["ConnectSDK", "ConnectSDKDependencies"])
     ],
     dependencies: [
+        .package(id: "proglove.connectsdk", from: "3.0.0"),
         .package(url: "https://github.com/apple/swift-protobuf.git", from: "1.33.0"),
         .package(url: "https://github.com/workaroundgmbh/aws-sdk-ios-spm", from: "2.36.2"),
         .package(url: "https://github.com/workaroundgmbh/OpenSSL.git", from: "1.1.4"),
@@ -20,16 +21,25 @@ let package = Package(
         .package(url: "https://github.com/NordicSemiconductor/IOS-nRF-Connect-Device-Manager", .upToNextMinor(from: "1.6.0"))
     ],
     targets: [
-        .binaryTarget(
+        .target(
             name: "ConnectSDK",
-            url: "https://dl.cloudsmith.io/QQ43WPa2Y7VlFUM3/proglove/markconnectiossdk-prod/raw/names/ConnectSDK-\(version).xcframework/versions/\(version)/ConnectSDK-\(version).xcframework.zip?accept_eula=8",
-            checksum: checksum),
+            dependencies: [
+                .product(name: "ConnectSDK", package: "proglove.connectsdk")
+            ],
+            path: "Sources"
+        ),
+
+        // .binaryTarget(
+        //     name: "ConnectSDK",
+        //     url: "https://dl.cloudsmith.io/QQ43WPa2Y7VlFUM3/proglove/markconnectiossdk-prod/raw/names/ConnectSDK-\(version).xcframework/versions/\(version)/ConnectSDK-\(version).xcframework.zip?accept_eula=8",
+        //     checksum: checksum),
         .target(
             name: "ConnectSDKDependencies",
             dependencies: [
                 "OpenSSL",
                 "ZIPFoundation",
-                .target(name: "ConnectSDK"),
+                // .target(name: "ConnectSDK"),
+                // .product(name: "ConnectSDK", package: "proglove.ConnectSDK")
                 .product(name: "SwiftProtobuf", package: "swift-protobuf"),
                 .product(name: "iOSMcuManagerLibrary", package: "IOS-nRF-Connect-Device-Manager"),
                 .product(name: "AWSCore", package: "aws-sdk-ios-spm"),
