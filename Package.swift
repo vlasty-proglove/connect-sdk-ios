@@ -10,7 +10,7 @@ let package = Package(
     products: [
         .library(
             name: "ProGloveConnectSDK",
-            targets: ["ConnectSDK", "ConnectSDKDependencies"])
+            targets: ["ConnectSDKDependencies"])
     ],
     dependencies: [
         .package(id: "proglove.connectsdk", from: "3.0.0"),
@@ -21,13 +21,13 @@ let package = Package(
         .package(url: "https://github.com/NordicSemiconductor/IOS-nRF-Connect-Device-Manager", .upToNextMinor(from: "1.6.0"))
     ],
     targets: [
-        .target(
-            name: "ConnectSDK",
-            dependencies: [
-                .product(name: "ConnectSDK", package: "proglove.connectsdk")
-            ],
-            path: "Sources/ConnectSDK"
-        ),
+        // .target(
+        //     name: "ConnectSDK",
+        //     dependencies: [
+        //         .product(name: "ConnectSDK", package: "proglove.connectsdk")
+        //     ],
+        //     path: "Sources/ConnectSDKDependencies"
+        // ),
 
         // .binaryTarget(
         //     name: "ConnectSDK",
@@ -40,6 +40,7 @@ let package = Package(
                 "ZIPFoundation",
                 // .target(name: "ConnectSDK"),
                 // .product(name: "ConnectSDK", package: "proglove.ConnectSDK")
+                .product(name: "ConnectSDK", package: "proglove.connectsdk"),
                 .product(name: "SwiftProtobuf", package: "swift-protobuf"),
                 .product(name: "iOSMcuManagerLibrary", package: "IOS-nRF-Connect-Device-Manager"),
                 .product(name: "AWSCore", package: "aws-sdk-ios-spm"),
