@@ -25,7 +25,8 @@ let package = Package(
             name: "ConnectSDK",
             dependencies: [
                 .product(name: "ConnectSDK", package: "proglove.connectsdk")
-            ]
+            ],
+            path: "Sources/ConnectSDK"
         ),
 
         // .binaryTarget(
