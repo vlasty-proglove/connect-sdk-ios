@@ -1,15 +1,12 @@
 // swift-tools-version: 5.9
 import PackageDescription
 
-let version = "2.9.0"
-// let checksum = "580042dcda21f0da33d22e493edb908b4d8688232c8c66d42052ce9b30d88df9"
-
 let package = Package(
-    name: "ProGloveConnectSDK",
+    name: "ConnectSDK",
     platforms: [.iOS(.v13)],
     products: [
         .library(
-            name: "ProGloveConnectSDK",
+            name: "ConnectSDK",
             targets: ["ConnectSDKDependencies"])
     ],
     dependencies: [
@@ -21,25 +18,11 @@ let package = Package(
         .package(url: "https://github.com/NordicSemiconductor/IOS-nRF-Connect-Device-Manager", .upToNextMinor(from: "1.6.0"))
     ],
     targets: [
-        // .target(
-        //     name: "ConnectSDK",
-        //     dependencies: [
-        //         .product(name: "ConnectSDK", package: "proglove.connectsdk")
-        //     ],
-        //     path: "Sources/ConnectSDKDependencies"
-        // ),
-
-        // .binaryTarget(
-        //     name: "ConnectSDK",
-        //     url: "https://dl.cloudsmith.io/QQ43WPa2Y7VlFUM3/proglove/markconnectiossdk-prod/raw/names/ConnectSDK-\(version).xcframework/versions/\(version)/ConnectSDK-\(version).xcframework.zip?accept_eula=8",
-        //     checksum: checksum),
         .target(
             name: "ConnectSDKDependencies",
             dependencies: [
                 "OpenSSL",
                 "ZIPFoundation",
-                // .target(name: "ConnectSDK"),
-                // .product(name: "ConnectSDK", package: "proglove.ConnectSDK")
                 .product(name: "ConnectSDK", package: "proglove.connectsdk"),
                 .product(name: "SwiftProtobuf", package: "swift-protobuf"),
                 .product(name: "iOSMcuManagerLibrary", package: "IOS-nRF-Connect-Device-Manager"),
